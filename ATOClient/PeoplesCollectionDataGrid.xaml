@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="ATOClient.PeoplesCollectionDataGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ATOClient"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" Name="myDGPeoples">
+    <Grid>
+        <DataGrid ItemsSource="{Binding ElementName=myDGPeoples, Path=ItemSource}"
+                  AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow"
+                  RowDetailsVisibilityMode="VisibleWhenSelected"
+                  Name="dg" KeyboardNavigation.TabNavigation="Local"
+                  PreviewKeyDown="dg_PreviewKeyDown" PreviewMouseDown="dg_PreviewMouseDown">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding id}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding fio, Mode=TwoWay,
+                    UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Binding="{Binding inn, Mode=TwoWay, 
+                    UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

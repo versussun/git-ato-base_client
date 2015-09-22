@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Peoples">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fio" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="inn" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="period_in_ATO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_people" Type="int" Nullable="false" />
+          <Property Name="date_in" Type="date" Nullable="false" />
+          <Property Name="date_out" Type="date" />
+          <Property Name="place" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="UBD_sertificate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date_send" Type="date" />
+          <Property Name="number_send" Type="nvarchar" MaxLength="50" />
+          <Property Name="date_receive" Type="date" />
+          <Property Name="certificate_number" Type="nvarchar" MaxLength="50" />
+          <Property Name="id_people" Type="int" />
+        </EntityType>
+        <Association Name="FK_period_in_ATO_Peoples">
+          <End Role="Peoples" Type="Self.Peoples" Multiplicity="1" />
+          <End Role="period_in_ATO" Type="Self.period_in_ATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Peoples">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="period_in_ATO">
+              <PropertyRef Name="id_people" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UBD_sertificate_Peoples">
+          <End Role="Peoples" Type="Self.Peoples" Multiplicity="0..1" />
+          <End Role="UBD_sertificate" Type="Self.UBD_sertificate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Peoples">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UBD_sertificate">
+              <PropertyRef Name="id_people" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ModelContainer">
+          <EntitySet Name="Peoples" EntityType="Self.Peoples" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="period_in_ATO" EntityType="Self.period_in_ATO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UBD_sertificate" EntityType="Self.UBD_sertificate" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_period_in_ATO_Peoples" Association="Self.FK_period_in_ATO_Peoples">
+            <End Role="Peoples" EntitySet="Peoples" />
+            <End Role="period_in_ATO" EntitySet="period_in_ATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UBD_sertificate_Peoples" Association="Self.FK_UBD_sertificate_Peoples">
+            <End Role="Peoples" EntitySet="Peoples" />
+            <End Role="UBD_sertificate" EntitySet="UBD_sertificate" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Peoples">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="inn" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="period_in_ATO" Relationship="Self.FK_period_in_ATO_Peoples" FromRole="Peoples" ToRole="period_in_ATO" />
+          <NavigationProperty Name="UBD_sertificate" Relationship="Self.FK_UBD_sertificate_Peoples" FromRole="Peoples" ToRole="UBD_sertificate" />
+        </EntityType>
+        <EntityType Name="period_in_ATO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_people" Type="Int32" Nullable="false" />
+          <Property Name="date_in" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="date_out" Type="DateTime" Precision="0" />
+          <Property Name="place" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Peoples" Relationship="Self.FK_period_in_ATO_Peoples" FromRole="period_in_ATO" ToRole="Peoples" />
+        </EntityType>
+        <EntityType Name="UBD_sertificate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="date_send" Type="DateTime" Precision="0" />
+          <Property Name="number_send" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="date_receive" Type="DateTime" Precision="0" />
+          <Property Name="certificate_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="id_people" Type="Int32" />
+          <NavigationProperty Name="Peoples" Relationship="Self.FK_UBD_sertificate_Peoples" FromRole="UBD_sertificate" ToRole="Peoples" />
+        </EntityType>
+        <Association Name="FK_period_in_ATO_Peoples">
+          <End Role="Peoples" Type="Self.Peoples" Multiplicity="1" />
+          <End Role="period_in_ATO" Type="Self.period_in_ATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Peoples">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="period_in_ATO">
+              <PropertyRef Name="id_people" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UBD_sertificate_Peoples">
+          <End Role="Peoples" Type="Self.Peoples" Multiplicity="0..1" />
+          <End Role="UBD_sertificate" Type="Self.UBD_sertificate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Peoples">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UBD_sertificate">
+              <PropertyRef Name="id_people" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Peoples" EntityType="Self.Peoples" />
+          <EntitySet Name="period_in_ATO" EntityType="Self.period_in_ATO" />
+          <EntitySet Name="UBD_sertificate" EntityType="Self.UBD_sertificate" />
+          <AssociationSet Name="FK_period_in_ATO_Peoples" Association="Self.FK_period_in_ATO_Peoples">
+            <End Role="Peoples" EntitySet="Peoples" />
+            <End Role="period_in_ATO" EntitySet="period_in_ATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UBD_sertificate_Peoples" Association="Self.FK_UBD_sertificate_Peoples">
+            <End Role="Peoples" EntitySet="Peoples" />
+            <End Role="UBD_sertificate" EntitySet="UBD_sertificate" />
+          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="Model.sysdiagrams" />
+        </EntityContainer>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="ModelEntities">
+          <EntitySetMapping Name="Peoples">
+            <EntityTypeMapping TypeName="Model.Peoples">
+              <MappingFragment StoreEntitySet="Peoples">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fio" ColumnName="fio" />
+                <ScalarProperty Name="inn" ColumnName="inn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="period_in_ATO">
+            <EntityTypeMapping TypeName="Model.period_in_ATO">
+              <MappingFragment StoreEntitySet="period_in_ATO">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_people" ColumnName="id_people" />
+                <ScalarProperty Name="date_in" ColumnName="date_in" />
+                <ScalarProperty Name="date_out" ColumnName="date_out" />
+                <ScalarProperty Name="place" ColumnName="place" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UBD_sertificate">
+            <EntityTypeMapping TypeName="Model.UBD_sertificate">
+              <MappingFragment StoreEntitySet="UBD_sertificate">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date_send" ColumnName="date_send" />
+                <ScalarProperty Name="number_send" ColumnName="number_send" />
+                <ScalarProperty Name="date_receive" ColumnName="date_receive" />
+                <ScalarProperty Name="certificate_number" ColumnName="certificate_number" />
+                <ScalarProperty Name="id_people" ColumnName="id_people" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,27 @@
+﻿<Window x:Class="ATOClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ATOClient"
+       
+        Title="MainWindow" mc:Ignorable="d" 
+        d:DesignHeight="600" d:DesignWidth="600"> 
+    <Window.Resources>
+        <CollectionViewSource x:Key="period" IsLiveSortingRequested="True"></CollectionViewSource>
+        <CollectionViewSource x:Key="peoples" IsLiveSortingRequested="True"></CollectionViewSource>
+        <CollectionViewSource x:Key="ubd_sertificate" IsLiveSortingRequested="True"></CollectionViewSource>
+        
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition ></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <local:PeriodCollectionDataGrid 
+            ItemSource="{Binding Source={StaticResource period}}"
+            PeopleDictionary="{Binding Source={StaticResource peoples}}">
+        </local:PeriodCollectionDataGrid>
+    </Grid>
+</Window>

@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Peoples">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fio" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="inn" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="period_in_ATO">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_people" Type="int" Nullable="false" />
+    <Property Name="date_in" Type="date" Nullable="false" />
+    <Property Name="date_out" Type="date" />
+    <Property Name="place" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="UBD_sertificate">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="date_send" Type="date" />
+    <Property Name="number_send" Type="nvarchar" MaxLength="50" />
+    <Property Name="date_receive" Type="date" />
+    <Property Name="certificate_number" Type="nvarchar" MaxLength="50" />
+    <Property Name="id_people" Type="int" />
+  </EntityType>
+  <Association Name="FK_period_in_ATO_Peoples">
+    <End Role="Peoples" Type="Self.Peoples" Multiplicity="1" />
+    <End Role="period_in_ATO" Type="Self.period_in_ATO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Peoples">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="period_in_ATO">
+        <PropertyRef Name="id_people" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UBD_sertificate_Peoples">
+    <End Role="Peoples" Type="Self.Peoples" Multiplicity="0..1" />
+    <End Role="UBD_sertificate" Type="Self.UBD_sertificate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Peoples">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="UBD_sertificate">
+        <PropertyRef Name="id_people" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище ModelContainer">
+    <EntitySet Name="Peoples" EntityType="Self.Peoples" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="period_in_ATO" EntityType="Self.period_in_ATO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UBD_sertificate" EntityType="Self.UBD_sertificate" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_period_in_ATO_Peoples" Association="Self.FK_period_in_ATO_Peoples">
+      <End Role="Peoples" EntitySet="Peoples" />
+      <End Role="period_in_ATO" EntitySet="period_in_ATO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UBD_sertificate_Peoples" Association="Self.FK_UBD_sertificate_Peoples">
+      <End Role="Peoples" EntitySet="Peoples" />
+      <End Role="UBD_sertificate" EntitySet="UBD_sertificate" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
