@@ -28,6 +28,5 @@ namespace ATOClient.model
         public virtual DbSet<Peoples> Peoples { get; set; }
         public virtual DbSet<period_in_ATO> period_in_ATO { get; set; }
         public virtual DbSet<UBD_sertificate> UBD_sertificate { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }

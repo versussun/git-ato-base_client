@@ -5,7 +5,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="fio" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="fio" Type="nvarchar" MaxLength="50" />
     <Property Name="inn" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="period_in_ATO">
@@ -17,16 +17,6 @@
     <Property Name="date_in" Type="date" Nullable="false" />
     <Property Name="date_out" Type="date" />
     <Property Name="place" Type="nvarchar(max)" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="UBD_sertificate">
     <Key>
@@ -66,7 +56,6 @@
   <EntityContainer Name="Хранилище ModelContainer">
     <EntitySet Name="Peoples" EntityType="Self.Peoples" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="period_in_ATO" EntityType="Self.period_in_ATO" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UBD_sertificate" EntityType="Self.UBD_sertificate" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_period_in_ATO_Peoples" Association="Self.FK_period_in_ATO_Peoples">
       <End Role="Peoples" EntitySet="Peoples" />

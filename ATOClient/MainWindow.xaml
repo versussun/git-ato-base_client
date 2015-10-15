@@ -4,24 +4,60 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ATOClient"
-       
         Title="MainWindow" mc:Ignorable="d" 
-        d:DesignHeight="600" d:DesignWidth="600"> 
-    <Window.Resources>
-        <CollectionViewSource x:Key="period" IsLiveSortingRequested="True"></CollectionViewSource>
-        <CollectionViewSource x:Key="peoples" IsLiveSortingRequested="True"></CollectionViewSource>
-        <CollectionViewSource x:Key="ubd_sertificate" IsLiveSortingRequested="True"></CollectionViewSource>
-        
-    </Window.Resources>
-    <Grid>
+        d:DesignHeight="600" d:DesignWidth="600">
+    <Grid Name="MainGrid" Width="auto">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition ></ColumnDefinition>
-            <ColumnDefinition ></ColumnDefinition>
-            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition Name="ColumnAllTables" Width="auto" MinWidth="25"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition MinWidth="150"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <local:PeriodCollectionDataGrid 
-            ItemSource="{Binding Source={StaticResource period}}"
-            PeopleDictionary="{Binding Source={StaticResource peoples}}">
-        </local:PeriodCollectionDataGrid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"></Menu>
+        <Expander Grid.Column="0" 
+                  Grid.Row="1" 
+                  Grid.ColumnSpan="3" 
+                  HorizontalAlignment="Right" 
+                  VerticalAlignment="Top" Background="Aqua" 
+                  HorizontalContentAlignment="Left"
+                  Width="{Binding ElementName=MainGrid, Path=Width}" IsExpanded="True">
+        </Expander>
+        <Grid Name="GrContentBase" Grid.Column="0" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="25"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Все таблици" Grid.Column="0" Grid.Row="0" TextAlignment="Center"></TextBlock>
+            <Button Name="bAllTablesCollaps" 
+                    Content="G" 
+                    Grid.Column="1" 
+                    Grid.Row="0" Click="bAllTablesCollaps_Click"></Button>
+            <TreeView Name="TreeViewTables" 
+                      Grid.Column="0" 
+                      Grid.Row="1" 
+                      Grid.ColumnSpan="2" 
+                      TreeViewItem.MouseDoubleClick="TreeViewTables_MouseDoubleClick">
+                <TreeViewItem Header="Базовые таблицы" 
+                              Name="Alphabet"></TreeViewItem>
+                <TreeViewItem Header="УБД" 
+                              Name="UBD"></TreeViewItem>
+                
+            </TreeView>
+        </Grid>
+        <GridSplitter Width="5" Grid.Row="2" 
+                      Grid.Column="1" 
+                      VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+            
+            <TabControl Grid.Column="2" Grid.Row="2" Name="TabControl"></TabControl>
+            <WrapPanel Name="StatusPanel" Grid.Column="0" Grid.Row="3"></WrapPanel>
     </Grid>
 </Window>

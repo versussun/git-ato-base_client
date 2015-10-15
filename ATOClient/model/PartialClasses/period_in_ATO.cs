@@ -12,5 +12,16 @@ namespace ATOClient.model
         {
             id_people = 19;
         }
+        public period_in_ATO GetCopy()
+        {
+            period_in_ATO temp = new period_in_ATO();
+            temp.id = this.id;
+            temp.id_people = this.id_people;
+            temp.Peoples = this.Peoples;
+            temp.place = this.place;
+            temp.date_in = this.date_in;
+            temp.date_out = this.date_out;
+            return temp;
+        }
     }
 }

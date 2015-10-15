@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="ATOClient.TextFilter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ATOClient"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" Background="Bisque">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="collection"></CollectionViewSource>
+    </UserControl.Resources>
+    <StackPanel>
+        <Button Content="Sort Acs" Click="Button_Click"></Button>
+        <Button Content="Sort Desc"></Button>
+        <DataGrid Name="FilterTable"
+                    ItemsSource="{Binding Source={StaticResource collection}}"
+                    AutoGenerateColumns="False" SelectionMode="Single" MouseUp="FilterTable_MouseDown">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsCheked, Mode=TwoWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>   
+                <DataGridTextColumn  Binding="{Binding Name}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</UserControl>

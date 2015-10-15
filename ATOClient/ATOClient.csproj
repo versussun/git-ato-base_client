@@ -83,22 +83,39 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataGridController.xaml.cs">
+      <DependentUpon>DataGridController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\TextFilter.xaml.cs">
+      <DependentUpon>TextFilter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="model\PartialClasses\Peoples.cs" />
     <Compile Include="model\PartialClasses\period_in_ATO.cs" />
-    <Compile Include="model\sysdiagrams.cs">
-      <DependentUpon>model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PeoplesCollectionDataGrid.xaml.cs">
+    <Compile Include="MainView\PeoplesCollectionDataGrid.xaml.cs">
       <DependentUpon>PeoplesCollectionDataGrid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PeriodCollectionDataGrid.xaml.cs">
+    <Compile Include="MainView\PeriodCollectionDataGrid.xaml.cs">
       <DependentUpon>PeriodCollectionDataGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="repositories\BaseRepository.cs" />
     <Compile Include="repositories\IRepositori.cs" />
     <Compile Include="repositories\SingletonContext.cs" />
     <Compile Include="SendKeys.cs" />
+    <Compile Include="MainView\UBDSertifCollectionDataGrid.xaml.cs">
+      <DependentUpon>UBDSertifCollectionDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ValidationRulesRow\PeoplesRowValidationRules.cs" />
+    <Compile Include="ValidationRulesRow\PeriodRowValidationRules.cs" />
+    <Compile Include="ValidationRulesRow\UBDValidationRules.cs" />
     <Compile Include="Validator.cs" />
+    <Page Include="DataGridController.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Filters\TextFilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -111,11 +128,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="PeoplesCollectionDataGrid.xaml">
+    <Page Include="MainView\PeoplesCollectionDataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PeriodCollectionDataGrid.xaml">
+    <Page Include="MainView\PeriodCollectionDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainView\UBDSertifCollectionDataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

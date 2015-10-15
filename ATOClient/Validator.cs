@@ -24,6 +24,8 @@ namespace ATOClient
     {
         public static bool IsValid(DependencyObject instance)
             {
+            
+            
             bool valid = true;
 
             if (Validation.GetHasError(instance)) 
@@ -31,12 +33,33 @@ namespace ATOClient
                 valid=false;
                 return valid; 
             }
-           
-            for(int i=0;i< VisualTreeHelper.GetChildrenCount(instance); i++) {
+
+
+            for (int i=0;i< VisualTreeHelper.GetChildrenCount(instance); i++) {
                 valid=Validator.IsValid(VisualTreeHelper.GetChild(instance, i));
                 if (!valid) break;
             }
             return valid;
         }
+        public static DependencyObject GetErrorElement(DependencyObject instance)
+        {
+
+            DependencyObject valid = null;
+
+            if (Validation.GetHasError(instance))
+            {
+                valid = instance;
+                return valid;
+            }
+
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(instance); i++)
+            {
+                valid = Validator.GetErrorElement(VisualTreeHelper.GetChild(instance, i));
+                if (valid!=null) break;
+            }
+            return valid;
+        }
     }
 }
+

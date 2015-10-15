@@ -10,7 +10,6 @@
         <EntityTypeShape EntityType="Model.UBD_sertificate" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_period_in_ATO_Peoples" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_UBD_sertificate_Peoples" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

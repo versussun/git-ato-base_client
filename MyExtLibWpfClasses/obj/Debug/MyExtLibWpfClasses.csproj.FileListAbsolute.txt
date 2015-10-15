@@ -1,0 +1,10 @@
+C:\Users\MSSQL\documents\visual studio 2015\Projects\ATOClient\MyExtLibWpfClasses\obj\Debug\MyExtLibWpfClasses.csprojResolveAssemblyReference.cache
+C:\Users\MSSQL\documents\visual studio 2015\Projects\ATOClient\MyExtLibWpfClasses\obj\Debug\AutoTextBox.g.cs
+C:\Users\MSSQL\documents\visual studio 2015\Projects\ATOClient\MyExtLibWpfClasses\obj\Debug\MyExtLibWpfClasses_MarkupCompile.cache
+C:\Users\MSSQL\documents\visual studio 2015\Projects\ATOClient\MyExtLibWpfClasses\obj\Debug\MyExtLibWpfClasses_MarkupCompile.lref
+C:\Users\MSSQL\documents\visual studio 2015\Projects\ATOClient\MyExtLibWpfClasses\bin\Debug\MyExtLibWpfClasses.dll
+C:\Users\MSSQL\documents\visual studio 2015\Projects\ATOClient\MyExtLibWpfClasses\bin\Debug\MyExtLibWpfClasses.pdb
+C:\Users\MSSQL\documents\visual studio 2015\Projects\ATOClient\MyExtLibWpfClasses\obj\Debug\AutoTextBox.baml
+C:\Users\MSSQL\documents\visual studio 2015\Projects\ATOClient\MyExtLibWpfClasses\obj\Debug\MyExtLibWpfClasses.g.resources
+C:\Users\MSSQL\documents\visual studio 2015\Projects\ATOClient\MyExtLibWpfClasses\obj\Debug\MyExtLibWpfClasses.dll
+C:\Users\MSSQL\documents\visual studio 2015\Projects\ATOClient\MyExtLibWpfClasses\obj\Debug\MyExtLibWpfClasses.pdb

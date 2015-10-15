@@ -1,0 +1,143 @@
+﻿<UserControl x:Class="ATOClient.UBDSertifCollectionDataGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ATOClient"
+             xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="peoples"></CollectionViewSource>
+        <CollectionViewSource x:Key="sertificate"></CollectionViewSource>
+    </UserControl.Resources>
+    <Grid>
+        <DataGrid Name="dg"
+                  ItemsSource="{Binding Source={StaticResource sertificate}}"
+                  AutoGenerateColumns="False" SelectionMode="Single" 
+                  SelectionUnit="FullRow"
+                   
+                  KeyboardNavigation.TabNavigation="Cycle"
+                  KeyboardNavigation.ControlTabNavigation="Cycle"
+                  SelectedCellsChanged="scheduleItemsDataGrid_SelectedCellsChanged">
+            <DataGrid.RowValidationErrorTemplate>
+                <ControlTemplate >
+                    <Grid KeyboardNavigation.IsTabStop="true"
+                        ToolTip="{Binding RelativeSource=
+                        {RelativeSource Mode=FindAncestor,
+                        AncestorType={x:Type DataGridRow}}, 
+                        Path=(Validation.Errors)[0].ErrorContent}">
+                        <Ellipse StrokeThickness="0" Fill="Red"
+                                 Width="{TemplateBinding FontSize}"
+                                 Height="{TemplateBinding FontSize}"
+                                 KeyboardNavigation.IsTabStop="true"/>
+                        <TextBlock Text="!" FontSize="{TemplateBinding FontSize}"
+                                   FontWeight="Bold" Foreground="White"
+                                   HorizontalAlignment="Center" 
+                                   KeyboardNavigation.IsTabStop="true"/>
+                    </Grid>
+                </ControlTemplate>
+            </DataGrid.RowValidationErrorTemplate>
+            <DataGrid.Columns>
+                <!--id-->
+                <DataGridTemplateColumn Header="№">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding id}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!--people-->
+                <DataGridTemplateColumn Header="ИНН">
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Peoples.inn}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <Grid FocusManager.FocusedElement="{Binding ElementName= taskCombo}">
+                                <ComboBox Name="taskCombo"
+                                    IsEditable="True" 
+                                    ItemsSource="{Binding Source={StaticResource peoples}}"
+                                    SelectedItem="{Binding Peoples,ValidatesOnExceptions=true, 
+                                    NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedValue="{Binding Path=id_people, Mode=TwoWay,
+                                    ValidatesOnExceptions=true, NotifyOnValidationError=true,
+                                    UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedValuePath="id"
+                                    DisplayMemberPath="inn" IsSynchronizedWithCurrentItem="False"  
+                                />
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="ПІБ">
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Peoples.fio}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <Grid FocusManager.FocusedElement="{Binding ElementName= taskCombo}">
+                                <ComboBox Name="taskCombo"
+                                    IsEditable="True" 
+                                    ItemsSource="{Binding Source={StaticResource peoples}}"
+                                    SelectedItem="{Binding Peoples,ValidatesOnExceptions=true, 
+                                    NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedValue="{Binding Path=id_people, Mode=TwoWay,
+                                    ValidatesOnExceptions=true, NotifyOnValidationError=true,
+                                    UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedValuePath="id"
+                                    DisplayMemberPath="fio" IsSynchronizedWithCurrentItem="False"  
+                                />
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <!--date_send-->
+                <DataGridTemplateColumn Header="Дата отправки">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding date_send, StringFormat='dd.MM.yyyy'}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <Grid FocusManager.FocusedElement="{Binding ElementName=taskDP}">
+                                <DatePicker Name="taskDP" Text="{Binding date_send, 
+                                UpdateSourceTrigger=PropertyChanged, 
+                                Mode=TwoWay, StringFormat='dd.MM.yyyy', ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}}"
+                                SelectedDate="{Binding date_send}" />
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <!--out_number-->
+                <DataGridTextColumn Header="вихідний №" Binding="{Binding number_send, Mode=TwoWay}" />
+                <!--date_recive_certificate-->
+                <DataGridTemplateColumn Header="Дата отримання">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding date_receive, StringFormat='dd.MM.yyyy'}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <Grid FocusManager.FocusedElement="{Binding ElementName=taskDP}">
+                                <DatePicker Name="taskDP" Text="{Binding date_receive, 
+                                UpdateSourceTrigger=PropertyChanged, 
+                                Mode=TwoWay, StringFormat='dd.MM.yyyy', ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}}"
+                                SelectedDate="{Binding date_receive}" />
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <!--certificate_number-->
+                <DataGridTextColumn Header="№ удостоверения УБД" Binding="{Binding certificate_number, Mode=TwoWay}" />
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

@@ -1,6 +1,9 @@
-﻿C:\Users\MSSQL\Documents\Visual Studio 2015\Projects\ATOClient\git-ato-base_client\ATOClient\obj\Debug\GeneratedInternalTypeHelper.g.cs
+﻿
 
+FC:\Users\MSSQL\Documents\Visual Studio 2015\Projects\ATOClient\git-ato-base_client\ATOClient\DataGridController.xaml;;
+FC:\Users\MSSQL\Documents\Visual Studio 2015\Projects\ATOClient\git-ato-base_client\ATOClient\Filters\TextFilter.xaml;;
 FC:\Users\MSSQL\Documents\Visual Studio 2015\Projects\ATOClient\git-ato-base_client\ATOClient\MainWindow.xaml;;
-FC:\Users\MSSQL\Documents\Visual Studio 2015\Projects\ATOClient\git-ato-base_client\ATOClient\PeoplesCollectionDataGrid.xaml;;
-FC:\Users\MSSQL\Documents\Visual Studio 2015\Projects\ATOClient\git-ato-base_client\ATOClient\PeriodCollectionDataGrid.xaml;;
+FC:\Users\MSSQL\Documents\Visual Studio 2015\Projects\ATOClient\git-ato-base_client\ATOClient\MainView\PeoplesCollectionDataGrid.xaml;;
+FC:\Users\MSSQL\Documents\Visual Studio 2015\Projects\ATOClient\git-ato-base_client\ATOClient\MainView\PeriodCollectionDataGrid.xaml;;
+FC:\Users\MSSQL\Documents\Visual Studio 2015\Projects\ATOClient\git-ato-base_client\ATOClient\MainView\UBDSertifCollectionDataGrid.xaml;;
 

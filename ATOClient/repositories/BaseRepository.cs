@@ -53,7 +53,6 @@ namespace ATOClient.repositories
                         break;
                     }
             }
-        
         }
 
         public void SaveChages()
@@ -64,8 +63,19 @@ namespace ATOClient.repositories
         #region Operation
         public T Add(T obj)
         {
-            context.Set<T>().Add(obj);
-            context.SaveChanges();
+            try
+            {
+                context.Set<T>().Add(obj);
+                context.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+            {
+                foreach (var es in ex.EntityValidationErrors)
+                {
+                    MessageBox.Show(es.ToString());
+                }
+                
+            }
             return null;
         }
 

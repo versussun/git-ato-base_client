@@ -1,4 +1,4 @@
-﻿// Создание кода T4 для модели "C:\Users\MSSQL\documents\visual studio 2015\Projects\ATOClient\ATOClient\model\model.edmx" включено. 
+﻿// Создание кода T4 для модели "C:\Users\MSSQL\Documents\Visual Studio 2015\Projects\ATOClient\git-ato-base_client\ATOClient\model\model.edmx" включено. 
 // Чтобы включить формирование кода прежних версий, измените значение свойства "Стратегия создания кода" конструктора
 // на "Legacy ObjectContext". Это свойство доступно в окне "Свойства", если модель
 // открыта в конструкторе.

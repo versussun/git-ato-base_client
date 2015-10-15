@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\MSSQL\Documents\Visual Studio 2015\Projects\ATOClient\git-ato-base_client\ATOClient\App.xaml
-3-2077590133
+6-1409757883
 2-830599801
-211831023564
+26-2103975719
 26776454709
-MainWindow.xaml;PeoplesCollectionDataGrid.xaml;PeriodCollectionDataGrid.xaml;
+DataGridController.xaml;Filters\TextFilter.xaml;MainWindow.xaml;MainView\PeoplesCollectionDataGrid.xaml;MainView\PeriodCollectionDataGrid.xaml;MainView\UBDSertifCollectionDataGrid.xaml;
 
 False
 

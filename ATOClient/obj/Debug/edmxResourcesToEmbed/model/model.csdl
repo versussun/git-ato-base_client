@@ -5,7 +5,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="fio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="fio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="inn" Type="Int64" Nullable="false" />
     <NavigationProperty Name="period_in_ATO" Relationship="Self.FK_period_in_ATO_Peoples" FromRole="Peoples" ToRole="period_in_ATO" />
     <NavigationProperty Name="UBD_sertificate" Relationship="Self.FK_UBD_sertificate_Peoples" FromRole="Peoples" ToRole="UBD_sertificate" />
@@ -69,16 +69,5 @@
       <End Role="Peoples" EntitySet="Peoples" />
       <End Role="UBD_sertificate" EntitySet="UBD_sertificate" />
     </AssociationSet>
-    <EntitySet Name="sysdiagrams" EntityType="Model.sysdiagrams" />
   </EntityContainer>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
 </Schema>

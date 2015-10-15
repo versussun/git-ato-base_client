@@ -12,6 +12,5 @@ namespace ATOClient.model
         {
             return this.inn.CompareTo(other.inn);
         }
-
     }
 }
