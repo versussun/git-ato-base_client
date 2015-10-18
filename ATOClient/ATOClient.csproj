@@ -86,6 +86,8 @@
     <Compile Include="DataGridController.xaml.cs">
       <DependentUpon>DataGridController.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Filters\FabricaForFilters.cs" />
+    <Compile Include="Filters\IFilter.cs" />
     <Compile Include="Filters\TextFilter.xaml.cs">
       <DependentUpon>TextFilter.xaml</DependentUpon>
     </Compile>

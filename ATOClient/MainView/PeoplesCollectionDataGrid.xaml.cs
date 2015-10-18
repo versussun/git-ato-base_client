@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using ATOClient.model;
 using ATOClient.repositories;
 using System.ComponentModel;
+using ATOClient.Filters;
 
 namespace ATOClient
 {
@@ -25,17 +26,21 @@ namespace ATOClient
     {
         public BaseRepository<Peoples> peopleRep;
         CollectionViewSource cvsPeoples;
+        List<IFilter> ListFilters;
 
         public bool Selected = false;
 
         public PeoplesCollectionDataGrid()
         {
             InitializeComponent();
-            
+            ListFilters = new List<IFilter>();
+
             cvsPeoples = (CollectionViewSource)FindResource("peoples");
             peopleRep = new BaseRepository<Peoples>();
+
             cvsPeoples.Source = peopleRep.items;
             tbPosElem.Text = (dg.SelectedIndex + 1).ToString() + " из " + (dg.Items.Count).ToString();
+
         }
 
         private void dg_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
@@ -90,19 +95,64 @@ namespace ATOClient
         {
             TextBlock tb = e.OriginalSource as TextBlock;
             BindingExpression be = tb.GetBindingExpression(TextBlock.TextProperty);
-            TextFilter tf = new TextFilter();
-            tf.Fill(be, dg);
-
+            FabricaForFilters fabrica = new FabricaForFilters();
+            
             (sender as DataGridCell).ContextMenu.Items.Clear();
+
+            var findFilters  = (from filter in ListFilters where filter.GetHeaderName() == be.ResolvedSourcePropertyName select filter);
+
+            IFilter old = null;
+            IFilter tf = null;
+
+            if (findFilters.Count() > 0)
+            {
+                old = findFilters.First();
+            }
+
+            if (old != null)
+            {
+                using (cvsPeoples.DeferRefresh())
+                {
+                    cvsPeoples.Filter -= old.BodyFilter;
+                    tf = fabrica.GetFilter(be, dg);
+                    tf.CopyFromOld(old);
+                    cvsPeoples.Filter += old.BodyFilter;
+                    (sender as DataGridCell).ContextMenu.Items.Add(tf);
+                    return;
+                }
+                
+            }else
+            {
+                tf = fabrica.GetFilter(be, dg);
+            }
+            
             (sender as DataGridCell).ContextMenu.Items.Add(tf);
 
         }
         private void Cell_ContextMenuClosing(object sender, ContextMenuEventArgs e)
         {
-            TextFilter tf=(sender as DataGridCell).ContextMenu.Items.GetItemAt(0) as TextFilter;
-            tf.IsEnable = true;
-            cvsPeoples.Filter += tf.Filtering;
+            IFilter tf=(sender as DataGridCell).ContextMenu.Items.GetItemAt(0) as IFilter;
+
+            if (tf.GetIsApply())
+            {
+                var findFilters = (from filter in ListFilters where filter.GetHeaderName() == tf.GetHeaderName() select filter);
+
+                IFilter old = null;
+
+                if (findFilters.Count() > 0)
+                {
+                    old = findFilters.First();
+                }
+                if (old != null)
+                {
+                    cvsPeoples.Filter -= old.BodyFilter;
+                    ListFilters.Remove(old);
+                }
+                cvsPeoples.Filter += tf.BodyFilter;
+                ListFilters.Add(tf);
+            }
             
         }
+        
     }
 }

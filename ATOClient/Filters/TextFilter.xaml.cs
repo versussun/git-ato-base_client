@@ -13,24 +13,31 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ATOClient.model;
+using ATOClient.Filters;
 
 namespace ATOClient
 {
     /// <summary>
     /// Логика взаимодействия для TextFilter.xaml
     /// </summary>
-    public partial class TextFilter : UserControl
+    public partial class TextFilter : UserControl, IFilter
     {
-        public bool IsEnable = false;
+        public bool IsAplly = false;
         public string Header = "";
+        public List<ItemFilter> FilterCollection;
+        public CollectionViewSource col;
+
         public TextFilter()
         {
             InitializeComponent();
+            FilterCollection = new List<ItemFilter>();
+            col = (CollectionViewSource)FindResource("collection");
+            FilterCollection.Add(new ItemFilter() {Name = "Выделить все...", IsCheked = true });
         }
 
         public void Fill(BindingExpression be, DataGrid dg)
         {
-            CollectionViewSource col = (CollectionViewSource)FindResource("collection");
+            
             Type t = be.ResolvedSource.GetType();
             List<string> str = new List<string>();
             foreach (var obj in dg.Items)
@@ -40,33 +47,54 @@ namespace ATOClient
             }
             var colect = from strin in str group strin by strin into newGroup select newGroup;
 
-            List<ItemFilter> items = new List<ItemFilter>();
+            FilterCollection = new List<ItemFilter>();
 
             foreach (IGrouping<string, string> obj in colect)
             {
-                items.Add(new ItemFilter() { Name = obj.Key, IsCheked = true });
+                FilterCollection.Add(new ItemFilter() { Name = obj.Key, IsCheked = true });
             }
-            col.Source = items;
+            FilterCollection.Sort((a,b)=>a.Name.CompareTo(b.Name));
+
+            col.Source = FilterCollection;
             Header = be.ResolvedSourcePropertyName;
 
         }
 
-        public void Filtering(object sender, FilterEventArgs e)
+        public void BodyFilter(object sender, FilterEventArgs e)
         {
-            if (IsEnable)
+            Type t = e.Item.GetType();
+            foreach(ItemFilter obj in FilterCollection)
             {
-                Type t = e.Item.GetType();
-                if (t.GetProperty(Header).GetValue(e.Item).ToString().Contains("a") )
+                if (obj.IsCheked && t.GetProperty(Header).GetValue(e.Item).ToString().Equals(obj.Name) )
                 {
                     e.Accepted = true;
                     return;
                 }
-                e.Accepted = false;
+
             }
+            e.Accepted = false;
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Button bt = e.OriginalSource as Button;
+            if (bt != null)
+            {
+                switch (bt.Name)
+                {
+                    case "bOk":
+                        IsAplly = true;
+                        break;
+                    case "bCancel":
+                        IsAplly = false;
+                        break;
+                    default:
+                        IsAplly = false;
+                        break;
+                }
+                (this.Parent as ContextMenu).IsOpen = false;
+            }
             
         }
 
@@ -74,6 +102,40 @@ namespace ATOClient
         private void FilterTable_MouseDown(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;
+        }
+
+        public bool GetIsApply()
+        {
+            return IsAplly;
+        }
+
+        public string GetHeaderName()
+        {
+            return Header;
+        }
+
+        public int GetCountFlters()
+        {
+            return FilterCollection.Count;
+        }
+
+        public void CopyFromOld(IFilter old)
+        {
+            foreach (var obj in FilterCollection)
+            {
+                foreach (var oldObj in old.GetFilterCollection())
+                {
+                    if (obj.Name.Equals(oldObj.Name))
+                    {
+                        obj.IsCheked = oldObj.IsCheked;
+                    }
+                }
+            }
+        }
+
+        public List<ItemFilter> GetFilterCollection()
+        {
+            return FilterCollection;
         }
     }
 

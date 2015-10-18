@@ -5,26 +5,35 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ATOClient"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" Background="Bisque">
+             d:DesignHeight="300" d:DesignWidth="300" 
+             Background="Bisque" Button.Click="Button_Click">
     <UserControl.Resources>
         <CollectionViewSource x:Key="collection"></CollectionViewSource>
     </UserControl.Resources>
     <StackPanel>
-        <Button Content="Sort Acs" Click="Button_Click"></Button>
+        <Button Content="Sort Acs"></Button>
         <Button Content="Sort Desc"></Button>
+        <ScrollViewer Height="230"
+                      HorizontalScrollBarVisibility="Auto" 
+                      VerticalScrollBarVisibility="Visible">
         <DataGrid Name="FilterTable"
                     ItemsSource="{Binding Source={StaticResource collection}}"
                     AutoGenerateColumns="False" SelectionMode="Single" MouseUp="FilterTable_MouseDown">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsCheked, Mode=TwoWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>   
-                <DataGridTextColumn  Binding="{Binding Name}" IsReadOnly="True"/>
-            </DataGrid.Columns>
-        </DataGrid>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Path=IsCheked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn  Binding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Отменить" Name="bCancel"></Button>
+            <Button Content="Применить" Name="bOk"></Button>
+        </StackPanel>
     </StackPanel>
 </UserControl>
